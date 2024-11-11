@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Set;
 
 public class GameTest {
-//  @Test
+  @Test
   public void runTestGame() {
     Player a = new Player("A", new RandomBrain());
     Player b = new Player("B", new RandomBrain());

@@ -1,9 +1,7 @@
 package com.jarcec.games.sixtakes.engine;
 
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Score {
   private final Map<Player, Integer> points = new HashMap<>();
@@ -17,7 +15,7 @@ public class Score {
   }
 
   public void merge(Score score) {
-    for(Map.Entry<Player, Integer> entry : this.points.entrySet()) {
+    for(Map.Entry<Player, Integer> entry : score.points.entrySet()) {
       addPoints(entry.getKey(), entry.getValue());
     }
   }
@@ -31,9 +29,18 @@ public class Score {
       return Optional.empty();
     }
 
+    return Optional.of(points.entrySet().stream()
+      .sorted(Map.Entry.comparingByValue())
+      .findFirst()
+      .get()
+      .getKey()
+    );
+  }
+
+  @Override
+  public String toString() {
     return points.entrySet().stream()
-      .max(Comparator.comparingInt(Map.Entry::getValue))
-      .map(Map.Entry::getKey)
-      ;
+      .map(e -> e.getKey().name() + "=" + e.getValue())
+      .collect(Collectors.joining(",", "Score(", ")"));
   }
 }

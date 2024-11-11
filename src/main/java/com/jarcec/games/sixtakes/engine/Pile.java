@@ -49,4 +49,9 @@ public class Pile {
     cards.add(card);
     return Collections.emptyList();
   }
+
+  @Override
+  public String toString() {
+    return cards.toString();
+  }
 }

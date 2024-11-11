@@ -1,7 +1,10 @@
 package com.jarcec.games.sixtakes.engine;
 
+import lombok.extern.log4j.Log4j2;
+
 import java.util.*;
 
+@Log4j2
 public class Round {
 
   private record RoundPlayer(Player player, Hand hand, List<Card> points) {
@@ -30,10 +33,15 @@ public class Round {
 
       roundPlayer.hand().removeCard(card);
     }
+
+    @Override
+    public String toString() {
+      return String.valueOf(card.id());
+    }
   }
 
-  private Table table;
-  private Set<RoundPlayer> players;
+  private final Table table;
+  private final Set<RoundPlayer> players;
 
   public Round(Set<Player> players) {
     // 1) Create a new deck
@@ -53,6 +61,7 @@ public class Round {
     // Play all 10 cards in the round
     for(int roundNumber = 0; roundNumber < 10; roundNumber++) {
       // 1) Initialization
+      log.info("Starting round {}", roundNumber);
       List<SelectedCard> selectedCards = new ArrayList<>();
 
       // 2) Players need to chose cards
@@ -62,11 +71,13 @@ public class Round {
 
       // 3) Sort order of the cards
       selectedCards.sort((a, b) -> a.card.id() < b.card.id() ? 1 : -1);
+      log.info("Selected cards: {}", selectedCards);
 
       // 4) Add cards to the table
       for(SelectedCard selectedCard : selectedCards) {
         selectedCard.addToTable(table);
       }
+      log.info("Table at the end of the round: {}", table);
     }
 
     Score score = new Score();

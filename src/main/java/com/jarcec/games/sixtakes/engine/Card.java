@@ -11,4 +11,8 @@ public record Card(int id) {
     return 1;
   }
 
+  @Override
+  public String toString() {
+    return String.valueOf(id);
+  }
 }
