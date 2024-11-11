@@ -1,6 +1,6 @@
 package com.jarcec.games.sixtakes.engine;
 
-public record Card(int id) {
+public record Card(int id) implements Comparable<Card> {
 
   public int getPoints() {
     if(id == 55) { return 7; }
@@ -14,5 +14,10 @@ public record Card(int id) {
   @Override
   public String toString() {
     return String.valueOf(id);
+  }
+
+  @Override
+  public int compareTo(Card other) {
+    return Integer.compare(this.id, other.id);
   }
 }

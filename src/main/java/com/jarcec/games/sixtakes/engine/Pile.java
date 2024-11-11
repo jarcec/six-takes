@@ -17,6 +17,10 @@ public class Pile {
     cards.add(card);
   }
 
+  public List<Card> getCards() {
+    return Collections.unmodifiableList(cards);
+  }
+
   public Card currentCard() {
     return cards.get(cards.size() - 1);
   }

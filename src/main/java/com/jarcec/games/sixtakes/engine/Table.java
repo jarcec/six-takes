@@ -1,6 +1,7 @@
 package com.jarcec.games.sixtakes.engine;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -18,6 +19,10 @@ public class Table {
 
   public Pile getPile(int index) {
     return piles.get(index);
+  }
+
+  public List<Pile> getPiles() {
+    return Collections.unmodifiableList(piles);
   }
 
   public Optional<List<Card>> addCard(Card card) {

@@ -9,7 +9,7 @@ public class Deck {
 
   public Deck() {
     this.cards = new ArrayList<>(104);
-    for(int i = 0; i < 104; i++) {
+    for(int i = 1; i <= 104; i++) {
       cards.add(new Card(i));
     }
     Collections.shuffle(this.cards);
