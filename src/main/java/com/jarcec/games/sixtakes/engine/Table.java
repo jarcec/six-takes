@@ -30,10 +30,10 @@ public class Table {
     Optional<List<Card>> pointCards = selectPile(selectedCard);
 
     if(pointCards.isPresent()) {
-      selectedCard.getRoundPlayer().getPoints().addAll(pointCards.get());
+      selectedCard.getRoundPlayer().getDiscard().add(pointCards.get());
     } else {
       Pile pile = selectedCard.getRoundPlayer().getPlayer().getBrain().selectPile(this);
-      selectedCard.getRoundPlayer().getPoints().addAll(pile.replace(selectedCard.getCard()));
+      selectedCard.getRoundPlayer().getDiscard().add(pile.replace(selectedCard.getCard()));
     }
 
     selectedCard.getRoundPlayer().getHand().removeCard(selectedCard.getCard());

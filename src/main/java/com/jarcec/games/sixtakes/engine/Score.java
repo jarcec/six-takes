@@ -4,9 +4,21 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class Score {
-  private final Map<Player, Integer> points = new HashMap<>();
+  private final Map<Player, Integer> points;
 
-  public void addPoints(Player player, int points) {
+  public Score() {
+    this.points = new HashMap<>();
+  }
+
+  public Score(Set<TablePlayer> players) {
+    this();
+
+    for(TablePlayer player : players) {
+      addPoints(player.getPlayer(), player.getDiscard().points());
+    }
+  }
+
+  private void addPoints(Player player, int points) {
     if(!this.points.containsKey(player)) {
       this.points.put(player, 0);
     }

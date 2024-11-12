@@ -58,13 +58,6 @@ public class Game {
       log.info("Table at the end of the round: {}", table);
     }
 
-    Score score = new Score();
-    for(TablePlayer roundPlayer : table.getPlayers()) {
-      score.addPoints(
-        roundPlayer.getPlayer(),
-        roundPlayer.getPoints().stream().map(Card::getPoints).reduce(0, Integer::sum)
-      );
-    }
-    return score;
+    return new Score(table.getPlayers());
   }
 }
