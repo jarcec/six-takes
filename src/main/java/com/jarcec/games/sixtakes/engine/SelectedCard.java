@@ -5,7 +5,7 @@ import lombok.Getter;
 import java.util.Optional;
 
 @Getter
-public class SelectedCard {
+public class SelectedCard implements Comparable<SelectedCard> {
   private final Card card;
   private final TablePlayer roundPlayer;
 
@@ -44,5 +44,10 @@ public class SelectedCard {
   @Override
   public String toString() {
     return String.valueOf(card.id());
+  }
+
+  @Override
+  public int compareTo(SelectedCard o) {
+    return card.compareTo(o.card);
   }
 }

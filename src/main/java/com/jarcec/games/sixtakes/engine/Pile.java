@@ -54,6 +54,10 @@ public class Pile {
     return Collections.emptyList();
   }
 
+  public int getPoints() {
+    return cards.stream().map(Card::getPoints).reduce(0, Integer::sum);
+  }
+
   @Override
   public String toString() {
     return cards.toString();

@@ -1,8 +1,11 @@
 package com.jarcec.games.sixtakes.engine;
 
+import lombok.Getter;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Getter
 public class Score {
   private final Map<Player, Integer> points;
 
