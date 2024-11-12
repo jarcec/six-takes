@@ -53,7 +53,7 @@ public class Game {
 
       // 4) Add cards to the table
       for(SelectedCard selectedCard : selectedCards) {
-        table.playCard(selectedCard);
+        selectedCard.addCardToTable(table);
       }
       log.info("Table at the end of the round: {}", table);
     }

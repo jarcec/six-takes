@@ -26,29 +26,4 @@ public class Table {
       this.players.add(new TablePlayer(player, deck));
     }
   }
-
-  public void playCard(SelectedCard selectedCard) {
-    // Firstly select pile for this card
-    Optional<Pile> activePile = Optional.empty();
-    int minDifference = 1000; // Randomly high number
-
-    for(Pile pile : piles) {
-      Optional<Integer> currentDifference = pile.difference(selectedCard.getCard());
-      if(currentDifference.isPresent()) {
-        if(currentDifference.get() < minDifference) {
-          minDifference = currentDifference.get();
-          activePile = Optional.of(pile);
-        }
-      }
-    }
-
-    if(activePile.isPresent()) {
-      selectedCard.getRoundPlayer().getDiscard().add(activePile.get().addCard(selectedCard.getCard()));
-    } else {
-      Pile pile = selectedCard.getRoundPlayer().getPlayer().getBrain().selectPile(this);
-      selectedCard.getRoundPlayer().getDiscard().add(pile.replace(selectedCard.getCard()));
-    }
-
-    selectedCard.finishTurn();
-  }
 }
