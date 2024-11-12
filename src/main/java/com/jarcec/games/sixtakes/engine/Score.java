@@ -40,7 +40,7 @@ public class Score {
   @Override
   public String toString() {
     return points.entrySet().stream()
-      .map(e -> e.getKey().name() + "=" + e.getValue())
+      .map(e -> e.getKey().getName() + "=" + e.getValue())
       .collect(Collectors.joining(",", "Score(", ")"));
   }
 }

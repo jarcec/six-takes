@@ -24,7 +24,7 @@ public class Game {
       log.info("Current score: {}", score);
     }
 
-    log.info("Game over; winner {}", score.getWinner().get().name());
+    log.info("Game over; winner {}", score.getWinner().get().getName());
   }
 
   private Score playRound() {
@@ -40,15 +40,15 @@ public class Game {
       for(TablePlayer roundPlayer : table.getPlayers()) {
         selectedCards.add(
           new SelectedCard(
-            roundPlayer.player().brain().selectCard(
-            roundPlayer.hand(),
+            roundPlayer.getPlayer().getBrain().selectCard(
+            roundPlayer.getHand(),
             table
           ),
           roundPlayer));
       }
 
       // 3) Sort order of the cards
-      selectedCards.sort((a, b) -> a.card().id() < b.card().id() ? 1 : -1);
+      selectedCards.sort((a, b) -> a.getCard().id() < b.getCard().id() ? 1 : -1);
       log.info("Selected cards: {}", selectedCards);
 
       // 4) Add cards to the table
@@ -61,8 +61,8 @@ public class Game {
     Score score = new Score();
     for(TablePlayer roundPlayer : table.getPlayers()) {
       score.addPoints(
-        roundPlayer.player(),
-        roundPlayer.points().stream().map(Card::getPoints).reduce(0, Integer::sum)
+        roundPlayer.getPlayer(),
+        roundPlayer.getPoints().stream().map(Card::getPoints).reduce(0, Integer::sum)
       );
     }
     return score;

@@ -30,13 +30,13 @@ public class Table {
     Optional<List<Card>> pointCards = selectPile(selectedCard);
 
     if(pointCards.isPresent()) {
-      selectedCard.roundPlayer().points().addAll(pointCards.get());
+      selectedCard.getRoundPlayer().getPoints().addAll(pointCards.get());
     } else {
-      Pile pile = selectedCard.roundPlayer().player().brain().selectPile(this);
-      selectedCard.roundPlayer().points().addAll(pile.replace(selectedCard.card()));
+      Pile pile = selectedCard.getRoundPlayer().getPlayer().getBrain().selectPile(this);
+      selectedCard.getRoundPlayer().getPoints().addAll(pile.replace(selectedCard.getCard()));
     }
 
-    selectedCard.roundPlayer().hand().removeCard(selectedCard.card());
+    selectedCard.getRoundPlayer().getHand().removeCard(selectedCard.getCard());
   }
 
   private Optional<List<Card>> selectPile(SelectedCard selectedCard) {
@@ -44,7 +44,7 @@ public class Table {
     int minDifference = 1000; // Randomly high number
 
     for(Pile pile : piles) {
-      Optional<Integer> currentDifference = pile.difference(selectedCard.card());
+      Optional<Integer> currentDifference = pile.difference(selectedCard.getCard());
       if(currentDifference.isPresent()) {
         if(currentDifference.get() < minDifference) {
           minDifference = currentDifference.get();
@@ -53,6 +53,6 @@ public class Table {
       }
     }
 
-    return activePile.map(pile -> pile.addCard(selectedCard.card()));
+    return activePile.map(pile -> pile.addCard(selectedCard.getCard()));
   }
 }
