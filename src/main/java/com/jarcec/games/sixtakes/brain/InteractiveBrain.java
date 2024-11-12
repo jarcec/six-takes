@@ -63,7 +63,7 @@ public class InteractiveBrain implements Brain {
         int pileId = Integer.parseInt(input);
 
         if(1 <= pileId && pileId <= 4) {
-          return table.getPile(pileId);
+          return table.getPiles().get(pileId);
         }
 
       } catch (IOException e) {

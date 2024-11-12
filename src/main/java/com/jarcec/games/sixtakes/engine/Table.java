@@ -1,36 +1,50 @@
 package com.jarcec.games.sixtakes.engine;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import lombok.Getter;
+
+import java.util.*;
 
 public class Table {
-  private List<Pile> piles;
+  @Getter private final List<Pile> piles;
+  @Getter private final Set<TablePlayer> players;
 
-  public Table(Deck deck) {
+  public Table(Set<Player> players) {
+    // 1) Create a new deck
+    Deck deck = new Deck();
+
+    // 2) Create the four main piles
     piles = new ArrayList<>(4);
     piles.add(new Pile(deck));
     piles.add(new Pile(deck));
     piles.add(new Pile(deck));
     piles.add(new Pile(deck));
+
+    // 3) Ready player hands and point piles
+    this.players = new HashSet<>();
+    for(Player player : players) {
+      this.players.add(new TablePlayer(player, deck));
+    }
   }
 
-  public Pile getPile(int index) {
-    return piles.get(index);
+  public void playCard(SelectedCard selectedCard) {
+    Optional<List<Card>> pointCards = selectPile(selectedCard);
+
+    if(pointCards.isPresent()) {
+      selectedCard.roundPlayer().points().addAll(pointCards.get());
+    } else {
+      Pile pile = selectedCard.roundPlayer().player().brain().selectPile(this);
+      selectedCard.roundPlayer().points().addAll(pile.replace(selectedCard.card()));
+    }
+
+    selectedCard.roundPlayer().hand().removeCard(selectedCard.card());
   }
 
-  public List<Pile> getPiles() {
-    return Collections.unmodifiableList(piles);
-  }
-
-  public Optional<List<Card>> addCard(Card card) {
+  private Optional<List<Card>> selectPile(SelectedCard selectedCard) {
     Optional<Pile> activePile = Optional.empty();
     int minDifference = 1000; // Randomly high number
 
     for(Pile pile : piles) {
-      Optional<Integer> currentDifference = pile.difference(card);
+      Optional<Integer> currentDifference = pile.difference(selectedCard.card());
       if(currentDifference.isPresent()) {
         if(currentDifference.get() < minDifference) {
           minDifference = currentDifference.get();
@@ -39,13 +53,6 @@ public class Table {
       }
     }
 
-    return activePile.map(pile -> pile.addCard(card));
-  }
-
-  @Override
-  public String toString() {
-    return piles.stream()
-      .map(Pile::toString)
-      .collect(Collectors.joining(",", "Table(", ")"));
+    return activePile.map(pile -> pile.addCard(selectedCard.card()));
   }
 }
