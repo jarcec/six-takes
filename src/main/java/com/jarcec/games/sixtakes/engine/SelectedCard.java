@@ -33,7 +33,7 @@ public class SelectedCard {
     if(activePile.isPresent()) {
       roundPlayer.getDiscard().add(activePile.get().addCard(card));
     } else {
-      Pile pile = roundPlayer.getPlayer().getBrain().selectPile(table);
+      Pile pile = roundPlayer.getPlayer().getBrain().selectPile(table, card);
       roundPlayer.getDiscard().add(pile.replace(card));
     }
 

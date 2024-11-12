@@ -16,27 +16,41 @@ public class Game {
 
   public void playGame() {
     log.info("Starting a new game");
-    Score score = new Score();
 
-    while(!score.isGameOver()) {
-      log.info("Starting a round");
-      score.merge(playRound());
-      log.info("Current score: {}", score);
+    // Announce start of the game to all players
+    for(Player player : players) {
+      player.getBrain().startGame();
     }
 
+    // Play as many rounds as needed
+    int roundNumber = 0;
+    Score score = new Score();
+    while(!score.isGameOver()) {
+      roundNumber++;
+      log.info("Starting a round {}", roundNumber);
+      score.merge(playRound(roundNumber));
+    }
+
+    for(Player player : players) {
+      player.getBrain().finishGame(score);
+    }
     log.info("Game over; winner {}", score.getWinner().get().getName());
   }
 
-  private Score playRound() {
+  private Score playRound(int roundNumber) {
+    // New table for this round
     Table table = new Table(players);
 
     // Play all 10 cards in the round
-    for(int roundNumber = 0; roundNumber < 10; roundNumber++) {
-      // 1) Initialization
-      log.info("Starting round {}", roundNumber);
-      List<SelectedCard> selectedCards = new ArrayList<>();
+    for(int turnNumber = 1; turnNumber <= 10; turnNumber++) {
+      // 1) Announce this round and turn
+      log.info("Starting round {} and turn {}", roundNumber, turnNumber);
+      for(Player player : players) {
+        player.getBrain().startRoundAndTurn(table, roundNumber, turnNumber);
+      }
 
       // 2) Players need to chose cards
+      List<SelectedCard> selectedCards = new ArrayList<>();
       for(TablePlayer roundPlayer : table.getPlayers()) {
         selectedCards.add(
           new SelectedCard(
@@ -45,6 +59,9 @@ public class Game {
             table
           ),
           roundPlayer));
+      }
+      for(Player player : players) {
+        player.getBrain().selectedCards(selectedCards);
       }
 
       // 3) Sort order of the cards

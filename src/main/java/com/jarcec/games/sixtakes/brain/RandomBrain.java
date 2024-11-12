@@ -15,7 +15,7 @@ public class RandomBrain implements Brain {
   }
 
   @Override
-  public Pile selectPile(Table table) {
+  public Pile selectPile(Table table, Card card) {
     return table.getPiles().get(ThreadLocalRandom.current().nextInt(4));
   }
 }

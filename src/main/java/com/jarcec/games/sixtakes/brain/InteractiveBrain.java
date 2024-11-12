@@ -33,7 +33,7 @@ public class InteractiveBrain implements Brain {
   }
 
   @Override
-  public Pile selectPile(Table table) {
+  public Pile selectPile(Table table, Card card) {
     displayTable(table);
     return readPile(table);
   }
@@ -73,9 +73,10 @@ public class InteractiveBrain implements Brain {
   }
 
   public void displayTable(Table table) {
-    System.out.println("Current state of the table: " );
+    int pileId = 0;
     for(Pile pile : table.getPiles()) {
-      System.out.print("Pile");
+      pileId++;
+      System.out.print("Pile #" + pileId + ": ");
       for(Card card: pile.getCards()) {
         System.out.print(" > ");
         System.out.print(card);
