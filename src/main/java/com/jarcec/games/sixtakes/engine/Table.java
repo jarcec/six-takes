@@ -4,9 +4,10 @@ import lombok.Getter;
 
 import java.util.*;
 
+@Getter
 public class Table {
-  @Getter private final List<Pile> piles;
-  @Getter private final Set<TablePlayer> players;
+  private final List<Pile> piles;
+  private final Set<TablePlayer> players;
 
   public Table(Set<Player> players) {
     // 1) Create a new deck
@@ -27,19 +28,7 @@ public class Table {
   }
 
   public void playCard(SelectedCard selectedCard) {
-    Optional<List<Card>> pointCards = selectPile(selectedCard);
-
-    if(pointCards.isPresent()) {
-      selectedCard.getRoundPlayer().getDiscard().add(pointCards.get());
-    } else {
-      Pile pile = selectedCard.getRoundPlayer().getPlayer().getBrain().selectPile(this);
-      selectedCard.getRoundPlayer().getDiscard().add(pile.replace(selectedCard.getCard()));
-    }
-
-    selectedCard.getRoundPlayer().getHand().removeCard(selectedCard.getCard());
-  }
-
-  private Optional<List<Card>> selectPile(SelectedCard selectedCard) {
+    // Firstly select pile for this card
     Optional<Pile> activePile = Optional.empty();
     int minDifference = 1000; // Randomly high number
 
@@ -53,6 +42,13 @@ public class Table {
       }
     }
 
-    return activePile.map(pile -> pile.addCard(selectedCard.getCard()));
+    if(activePile.isPresent()) {
+      selectedCard.getRoundPlayer().getDiscard().add(activePile.get().addCard(selectedCard.getCard()));
+    } else {
+      Pile pile = selectedCard.getRoundPlayer().getPlayer().getBrain().selectPile(this);
+      selectedCard.getRoundPlayer().getDiscard().add(pile.replace(selectedCard.getCard()));
+    }
+
+    selectedCard.finishTurn();
   }
 }
