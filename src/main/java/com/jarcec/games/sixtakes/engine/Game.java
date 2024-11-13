@@ -2,9 +2,7 @@ package com.jarcec.games.sixtakes.engine;
 
 import lombok.extern.log4j.Log4j2;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Log4j2
 public class Game {
@@ -27,8 +25,11 @@ public class Game {
     Score score = new Score();
     while(!score.isGameOver()) {
       roundNumber++;
-      log.info("Starting a round {}", roundNumber);
       score.merge(playRound(roundNumber));
+      log.info("Score at the end of round {}", roundNumber);
+      for(Map.Entry<Player, Integer> entry : score.getPoints().entrySet()) {
+        log.info("Player {}: {} points", entry.getKey().getName(), entry.getValue());
+      }
     }
 
     for(Player player : players) {
@@ -48,6 +49,9 @@ public class Game {
       for(Player player : players) {
         player.getBrain().startRoundAndTurn(table, roundNumber, turnNumber);
       }
+      for(Pile pile : table.getPiles()) {
+        log.info("Pile: {}", pile);
+      }
 
       // 2) Players need to chose cards
       List<SelectedCard> selectedCards = new ArrayList<>();
@@ -60,19 +64,18 @@ public class Game {
           ),
           roundPlayer));
       }
+
+      // 3) Sort order of the cards
+      Collections.sort(selectedCards);
+      log.info("Selected cards for this turn: {}", selectedCards);
       for(Player player : players) {
         player.getBrain().selectedCards(selectedCards);
       }
-
-      // 3) Sort order of the cards
-      selectedCards.sort((a, b) -> a.getCard().id() < b.getCard().id() ? 1 : -1);
-      log.info("Selected cards: {}", selectedCards);
 
       // 4) Add cards to the table
       for(SelectedCard selectedCard : selectedCards) {
         selectedCard.addCardToTable(table);
       }
-      log.info("Table at the end of the round: {}", table);
     }
 
     return new Score(table.getPlayers());

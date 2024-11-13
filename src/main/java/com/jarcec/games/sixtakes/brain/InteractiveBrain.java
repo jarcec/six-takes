@@ -66,7 +66,6 @@ public class InteractiveBrain implements Brain {
   @Override
   public void selectedCards(List<SelectedCard> selectedCards) {
     String cards = selectedCards.stream()
-      .sorted()
       .map(c -> c.getCard().id() + "(" + c.getCard().getPoints() + ")")
       .collect(Collectors.joining(", "));
     System.out.println("Cards selected in this turn (points): " + cards);
@@ -95,7 +94,7 @@ public class InteractiveBrain implements Brain {
         pileId = Integer.parseInt(input);
 
         if(1 <= pileId && pileId <= 4) {
-          return table.getPiles().get(pileId);
+          return table.getPiles().get(pileId - 1);
         }
 
         System.out.println("Selected invalid pile number.");
