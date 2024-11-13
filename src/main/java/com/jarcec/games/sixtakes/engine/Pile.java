@@ -38,8 +38,8 @@ public class Pile {
   public Optional<Integer> difference(Card card) {
     Card currentCard = currentCard();
 
-    if(currentCard.id() < card.id()) {
-      return Optional.of(card.id() - currentCard.id());
+    if(currentCard.getId() < card.getId()) {
+      return Optional.of(card.getId() - currentCard.getId());
     }
 
     return Optional.empty();

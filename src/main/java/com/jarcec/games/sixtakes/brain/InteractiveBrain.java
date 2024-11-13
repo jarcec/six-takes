@@ -41,7 +41,7 @@ public class InteractiveBrain implements Brain {
     // Display player's hand
     String cards = hand.getCards().stream()
       .sorted()
-      .map(c -> c.id() + "(" + c.getPoints() + ")")
+      .map(c -> c.getId() + "(" + c.getPoints() + ")")
       .collect(Collectors.joining(", "));
     System.out.println("Your hand (points): " + cards);
 
@@ -66,14 +66,14 @@ public class InteractiveBrain implements Brain {
   @Override
   public void selectedCards(List<SelectedCard> selectedCards) {
     String cards = selectedCards.stream()
-      .map(c -> c.getCard().id() + "(" + c.getCard().getPoints() + ")")
+      .map(c -> c.getCard().getId() + "(" + c.getCard().getPoints() + ")")
       .collect(Collectors.joining(", "));
     System.out.println("Cards selected in this turn (points): " + cards);
   }
 
   @Override
   public Pile selectPile(Table table, Card card) {
-    System.out.println("Your card " + card.id() + " is lowest then any pile. Select a pile to take to your discard pile.");
+    System.out.println("Your card " + card.getId() + " is lowest then any pile. Select a pile to take to your discard pile.");
     // Available piles
     int pileId = 0;
     for(Pile pile : table.getPiles()) {

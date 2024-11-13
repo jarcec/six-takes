@@ -1,6 +1,27 @@
 package com.jarcec.games.sixtakes.engine;
 
-public record Card(int id) implements Comparable<Card> {
+import lombok.Getter;
+
+import java.util.Objects;
+
+@Getter
+public class Card implements Comparable<Card> {
+  private final int id;
+
+  @Override
+  public boolean equals(Object o) {
+    if (!(o instanceof Card card)) return false;
+    return getId() == card.getId();
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hashCode(getId());
+  }
+
+  public Card(int id) {
+    this.id = id;
+  }
 
   public int getPoints() {
     if(id == 55) { return 7; }

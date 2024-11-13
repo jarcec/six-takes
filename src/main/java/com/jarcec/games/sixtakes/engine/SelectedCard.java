@@ -43,7 +43,7 @@ public class SelectedCard implements Comparable<SelectedCard> {
 
   @Override
   public String toString() {
-    return String.valueOf(card.id());
+    return String.valueOf(card.getId());
   }
 
   @Override
