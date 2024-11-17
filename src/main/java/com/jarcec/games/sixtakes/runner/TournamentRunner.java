@@ -1,10 +1,12 @@
-package com.jarcec.games.sixtakes.engine;
+package com.jarcec.games.sixtakes.runner;
 
 import com.jarcec.games.sixtakes.brain.RandomBrain;
+import com.jarcec.games.sixtakes.engine.Player;
+import com.jarcec.games.sixtakes.engine.Statistics;
+import com.jarcec.games.sixtakes.engine.Tournament;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 public class TournamentRunner {
