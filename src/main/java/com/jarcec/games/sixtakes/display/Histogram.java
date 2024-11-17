@@ -36,8 +36,11 @@ public class Histogram {
       }
     }
 
+    // max label size is simply the last label (most amount of digits)
+    int maxLabelSize = labels.get(labels.size() - 1).length();
+
     for(int i = 0; i < this.counts.size(); i++) {
-      System.out.println(labels.get(i) + ": " + "█".repeat(this.counts.get(i)));
+      System.out.println(" ".repeat(maxLabelSize - labels.get(i).length()) + labels.get(i) + ": " + "█".repeat(this.counts.get(i)));
     }
 
   }
