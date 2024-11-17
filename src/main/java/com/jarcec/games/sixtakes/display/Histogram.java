@@ -39,8 +39,15 @@ public class Histogram {
     // max label size is simply the last label (most amount of digits)
     int maxLabelSize = labels.get(labels.size() - 1).length();
 
+    // Calculate percentages
+    int totalSum = counts.stream().mapToInt(Integer::intValue).sum();
+
+    // Finally display the histogram columns (ehm rows)
     for(int i = 0; i < this.counts.size(); i++) {
-      System.out.println(" ".repeat(maxLabelSize - labels.get(i).length()) + labels.get(i) + ": " + "█".repeat(this.counts.get(i)));
+      double percentage = (double)counts.get(i) / totalSum * 100.0d;
+      String percentageInsert = String.format("%5.2f", percentage);
+
+      System.out.println(" ".repeat(maxLabelSize - labels.get(i).length()) + labels.get(i) + " (" + percentageInsert + "%): " + "█".repeat(this.counts.get(i)));
     }
 
   }
