@@ -12,7 +12,7 @@ public class Game {
     this.players = players;
   }
 
-  public void playGame() {
+  public Score playGame() {
     log.info("Starting a new game");
 
     // Announce start of the game to all players
@@ -36,6 +36,7 @@ public class Game {
       player.getBrain().finishGame(score);
     }
     log.info("Game over; winner {}", score.getWinner().get().getName());
+    return score;
   }
 
   private Score playRound(int roundNumber) {
