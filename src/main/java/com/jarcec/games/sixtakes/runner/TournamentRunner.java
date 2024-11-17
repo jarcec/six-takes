@@ -3,39 +3,15 @@ package com.jarcec.games.sixtakes.runner;
 import com.jarcec.games.sixtakes.brain.HighestCardBrain;
 import com.jarcec.games.sixtakes.brain.LowestCardBrain;
 import com.jarcec.games.sixtakes.brain.RandomBrain;
+import com.jarcec.games.sixtakes.display.Histogram;
 import com.jarcec.games.sixtakes.engine.Player;
 import com.jarcec.games.sixtakes.engine.Statistics;
 import com.jarcec.games.sixtakes.engine.Tournament;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
 public class TournamentRunner {
-
-  private final static class Histogram {
-    private final List<String> labels;
-    private final List<Integer> counts;
-
-    Histogram(List<String> labels) {
-      this.labels = labels;
-      this.counts = new ArrayList<>(labels.size());
-      for(String ignored : labels) {
-        this.counts.add(0);
-      }
-    }
-
-    public void add(int group) {
-      this.counts.set(group, this.counts.get(group) + 1);
-    }
-
-    public void display() {
-      for(int i = 0; i < labels.size(); i++) {
-        System.out.println(labels.get(i) + ": " + "X".repeat(counts.get(i)) );
-      }
-    }
-  }
-
   public static void main(String[] args) throws Exception {
     System.out.println("Welcome to SixTakes Tournament!");
 
