@@ -31,18 +31,18 @@ public class TournamentRunner {
 
     // Print tournament results
     for(Player player : players) {
-      Histogram rankHistogram = new Histogram(List.of("1", "2", "3", "4", "5", "6"));
-      Histogram pointsHistogram = new Histogram(List.of("00-10", "11-20", "21-30", "31-40", "41-50", "51-60", "61-70", "71-80", "81-90", "91-100", "101-110"));
+      Histogram rankHistogram = new Histogram(1);
+      Histogram pointsHistogram = new Histogram(10);
       for(Statistics.Result result: statistics.getResults().get(player)) {
         rankHistogram.add(result.getRank());
-        pointsHistogram.add(result.getPoints() / 10);
+        pointsHistogram.add(result.getPoints());
       }
 
       System.out.println("Player: " + player.getName() + " (" + player.getBrain().getClass().getSimpleName() + ")");
       System.out.println("Rank:");
-      rankHistogram.display();
+      rankHistogram.displayStdout();
       System.out.println("Points:");
-      pointsHistogram.display();
+      pointsHistogram.displayStdout();
 
       System.out.println();
     }
