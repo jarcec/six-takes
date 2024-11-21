@@ -1,5 +1,6 @@
 package com.jarcec.games.sixtakes.engine;
 
+import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 
 import java.util.*;
@@ -7,9 +8,11 @@ import java.util.*;
 @Log4j2
 public class Game {
   private final Set<Player> players;
+  @Getter private final List<RoundHistory> roundHistories;
 
   public Game(Set<Player> players) {
     this.players = players;
+    this.roundHistories = new ArrayList<>();
   }
 
   public Score playGame() {
@@ -85,8 +88,14 @@ public class Game {
       }
     }
 
+    // Generate and persist score
     Score score = new Score(table.getPlayers());
     history.setFinalScore(score);
+
+    // Ensure that this round history is persisted
+    roundHistories.add(history);
+
+    // And we're done, return score
     return score;
   }
 }

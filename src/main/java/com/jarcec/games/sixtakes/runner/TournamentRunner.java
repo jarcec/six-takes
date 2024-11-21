@@ -1,13 +1,21 @@
 package com.jarcec.games.sixtakes.runner;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.jarcec.games.sixtakes.brain.HighestCardBrain;
 import com.jarcec.games.sixtakes.brain.LowestCardBrain;
 import com.jarcec.games.sixtakes.brain.RandomBrain;
 import com.jarcec.games.sixtakes.display.Histogram;
 import com.jarcec.games.sixtakes.engine.Player;
+import com.jarcec.games.sixtakes.engine.RoundHistory;
 import com.jarcec.games.sixtakes.engine.Statistics;
 import com.jarcec.games.sixtakes.engine.Tournament;
 
+import java.io.BufferedWriter;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.List;
 
@@ -30,10 +38,10 @@ public class TournamentRunner {
     Statistics statistics = tournament.playTournament(500);
 
     // Print tournament results
-    for(Player player : players) {
+    for (Player player : players) {
       Histogram rankHistogram = new Histogram(1);
       Histogram pointsHistogram = new Histogram(10);
-      for(Statistics.Result result: statistics.getResults().get(player)) {
+      for (Statistics.Result result : statistics.getResults().get(player)) {
         rankHistogram.add(result.getRank());
         pointsHistogram.add(result.getPoints());
       }
@@ -45,6 +53,16 @@ public class TournamentRunner {
       pointsHistogram.displayStdout();
 
       System.out.println();
+    }
+
+    // Serialize history
+    Path path = Paths.get("/Users/jarcec/projects/six-takes/round-histories.json");
+    try (BufferedWriter writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8)) {
+      Gson gson = new GsonBuilder().setPrettyPrinting().create();
+      for (RoundHistory history : tournament.getRoundHistories()) {
+        writer.write(gson.toJson(history));
+        writer.newLine();
+      }
     }
   }
 }
