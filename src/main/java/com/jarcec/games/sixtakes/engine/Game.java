@@ -43,6 +43,9 @@ public class Game {
     // New table for this round
     Table table = new Table(players);
 
+    // Calculation of round history for learning algorithms
+    RoundHistory history = new RoundHistory(table);
+
     // Play all 10 cards in the round
     for(int turnNumber = 1; turnNumber <= 10; turnNumber++) {
       // 1) Announce this round and turn
@@ -73,12 +76,17 @@ public class Game {
         player.getBrain().selectedCards(selectedCards);
       }
 
+      // Intermezzo: Persist history of the game
+      history.createAndAddTurn(table, selectedCards);
+
       // 4) Add cards to the table
       for(SelectedCard selectedCard : selectedCards) {
         selectedCard.addCardToTable(table);
       }
     }
 
-    return new Score(table.getPlayers());
+    Score score = new Score(table.getPlayers());
+    history.setFinalScore(score);
+    return score;
   }
 }
