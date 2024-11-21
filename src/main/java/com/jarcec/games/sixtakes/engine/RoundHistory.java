@@ -56,7 +56,7 @@ public class RoundHistory {
     for(TablePlayer player: table.getPlayers()) {
       this.players.add(new History.Player(
         player.getPlayer().getId().toString(),
-        player.getHand().getCards().stream().map(Card::getId).toList()
+        player.getHand().getCards().stream().map(Card::getId).sorted().toList()
       ));
     }
   }
