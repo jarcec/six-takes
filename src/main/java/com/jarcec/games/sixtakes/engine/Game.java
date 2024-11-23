@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Log4j2
 public class Game {
@@ -58,7 +59,7 @@ public class Game {
         player.getBrain().startRoundAndTurn(table, roundNumber, turnNumber);
       }
       for(Pile pile : table.getPiles()) {
-        log.info("Pile: {}", pile);
+        log.info("Pile: {}", String.join(" > ", pile.getCards().stream().map(Card::toString).toList()));
       }
 
       // 2) Players need to chose cards
@@ -70,7 +71,10 @@ public class Game {
 
       // 3) Sort order of the cards
       Collections.sort(selections);
-      log.info("Selected cards for this turn: {}", selections);
+      log.info("Selected cards for this turn: {}", selections.stream()
+        .map(s -> s.getRoundPlayer().getPlayer().getName() + " (" + s.getCard().getId() + "; " + s.getPile().getPileIndex() + ")")
+        .collect(Collectors.joining(", "))
+      );
       for(Player player : players) {
         player.getBrain().selectedCards(selections);
       }
