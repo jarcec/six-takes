@@ -15,10 +15,10 @@ public class Table {
 
     // 2) Create the four main piles
     piles = new ArrayList<>(4);
-    piles.add(new Pile(deck));
-    piles.add(new Pile(deck));
-    piles.add(new Pile(deck));
-    piles.add(new Pile(deck));
+    piles.add(new Pile(0, deck));
+    piles.add(new Pile(1, deck));
+    piles.add(new Pile(2, deck));
+    piles.add(new Pile(3, deck));
 
     // 3) Ready player hands and point piles
     this.players = new HashSet<>();

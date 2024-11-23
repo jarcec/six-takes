@@ -1,24 +1,26 @@
 package com.jarcec.games.sixtakes.engine;
 
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+@Getter
 public class Pile {
+  // Pile index (0-3)
+  private int pileIndex;
   private List<Card> cards;
 
-  public Pile(Deck deck) {
+  public Pile(int pileIndex, Deck deck) {
+    this.pileIndex = pileIndex;
     initPile(deck.drawCard());
   }
 
   private void initPile(Card card) {
     cards = new ArrayList<>(5);
     cards.add(card);
-  }
-
-  public List<Card> getCards() {
-    return Collections.unmodifiableList(cards);
   }
 
   public Card currentCard() {
