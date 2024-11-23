@@ -58,7 +58,7 @@ public class TournamentRunner {
     // Serialize history (as json)
     Path path = Paths.get("/Users/jarcec/projects/six-takes/round-histories.json");
     try (BufferedWriter writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8)) {
-      Gson gson = new GsonBuilder().create();
+      Gson gson = new GsonBuilder().setPrettyPrinting().create();
       for (RoundHistory history : tournament.getRoundHistories()) {
         writer.write(gson.toJson(history));
         writer.newLine();

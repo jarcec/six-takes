@@ -31,9 +31,16 @@ public class RoundHistory {
     }
 
     @Getter @Setter @AllArgsConstructor
+    public static final class Selection {
+      private String playerId;
+      private int card;
+      private int pile;
+    }
+
+    @Getter @Setter @AllArgsConstructor
     public static final class Turn {
       private Table table;
-      private Map<String, Integer> selectedCards;
+      private List<Selection> selections;
     }
   }
 
@@ -58,7 +65,11 @@ public class RoundHistory {
         table.getPiles().get(2).getCards().stream().map(Card::getId).toList(),
         table.getPiles().get(3).getCards().stream().map(Card::getId).toList()
       ),
-      selections.stream().collect(Collectors.toMap(c -> c.getRoundPlayer().getPlayer().getId().toString(), c -> c.getCard().getId()))
+      selections.stream().map(s -> new History.Selection(
+        s.getRoundPlayer().getPlayer().getId().toString(),
+        s.getCard().getId(),
+        s.getPile().getPileIndex()
+      )).toList()
     ));
   }
 
