@@ -26,4 +26,16 @@ public class Table {
       this.players.add(new TablePlayer(player, deck));
     }
   }
+
+  public Pile getLowestPointPile() {
+    Pile lowestPile = piles.get(0);
+
+    for(Pile pile : piles) {
+      if(pile.getPoints() < lowestPile.getPoints()) {
+        lowestPile = pile;
+      }
+    }
+
+    return lowestPile;
+  }
 }
