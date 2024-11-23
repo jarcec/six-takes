@@ -1,10 +1,18 @@
 package com.jarcec.games.sixtakes.brain;
 
 import com.jarcec.games.sixtakes.engine.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 import java.util.List;
 
 public interface Brain {
+
+  @Getter @AllArgsConstructor
+  public static class Selection {
+    private Card card;
+    private Pile pile;
+  }
 
   /**
    * Called upon game start to let Brain initialize anything that needs to be initialized.
@@ -27,7 +35,7 @@ public interface Brain {
    * @param table Table of the game
    * @return Card to play this turn
    */
-  Card selectCard(Hand hand, Table table);
+  Selection makeSelection(Hand hand, Table table);
 
   /**
    * List of all selected cards for this turn across all players.
@@ -35,14 +43,6 @@ public interface Brain {
    */
   default void selectedCards(List<SelectedCard> selectedCards) {
   }
-
-  /**
-   * Select a pile to replace with your card
-   * @param table Table of the game
-   * @param card Card that was selected for this turn
-   * @return Pile from the table that should be replaced.
-   */
-  Pile selectPile(Table table, Card card);
 
   /**
    * Called after a game is over with final score.

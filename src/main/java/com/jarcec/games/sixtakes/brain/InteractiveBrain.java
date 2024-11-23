@@ -9,19 +9,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class InteractiveBrain implements Brain {
+public class InteractiveBrain {
+//public class InteractiveBrain implements Brain {
   private final BufferedReader reader;
 
   public InteractiveBrain() {
     this.reader = new BufferedReader(new InputStreamReader(System.in));
   }
 
-  @Override
+//  @Override
   public void startGame() {
     System.out.println("Welcome to a new game of SixTakes!");
   }
 
-  @Override
+//  @Override
   public void startRoundAndTurn(Table table, int round, int turn) {
     System.out.println("Round " + round + ", turn " + turn + " out of 10");
     int pileId = 0;
@@ -36,7 +37,7 @@ public class InteractiveBrain implements Brain {
     }
   }
 
-  @Override
+ // @Override
   public Card selectCard(Hand hand, Table table) {
     // Display player's hand
     String cards = hand.getCards().stream()
@@ -63,7 +64,7 @@ public class InteractiveBrain implements Brain {
     }
   }
 
-  @Override
+//  @Override
   public void selectedCards(List<SelectedCard> selectedCards) {
     String cards = selectedCards.stream()
       .map(c -> c.getCard().getId() + "(" + c.getCard().getPoints() + ")")
@@ -71,7 +72,7 @@ public class InteractiveBrain implements Brain {
     System.out.println("Cards selected in this turn (points): " + cards);
   }
 
-  @Override
+//  @Override
   public Pile selectPile(Table table, Card card) {
     System.out.println("Your card " + card.getId() + " is lowest then any pile. Select a pile to take to your discard pile.");
     // Available piles
@@ -104,7 +105,7 @@ public class InteractiveBrain implements Brain {
     }
   }
 
-  @Override
+//  @Override
   public void finishGame(Score score) {
     System.out.println("Game over! Thank you for playing. Final score:");
     for(Map.Entry<Player, Integer> entry : score.getPoints().entrySet()) {

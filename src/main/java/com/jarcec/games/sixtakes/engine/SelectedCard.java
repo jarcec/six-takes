@@ -7,10 +7,12 @@ import java.util.Optional;
 @Getter
 public class SelectedCard implements Comparable<SelectedCard> {
   private final Card card;
+  private final Pile pile;
   private final TablePlayer roundPlayer;
 
-  public SelectedCard(Card card, TablePlayer roundPlayer) {
+  public SelectedCard(Card card, Pile pile, TablePlayer roundPlayer) {
     this.card = card;
+    this.pile = pile;
     this.roundPlayer = roundPlayer;
   }
 
@@ -33,7 +35,6 @@ public class SelectedCard implements Comparable<SelectedCard> {
     if(activePile.isPresent()) {
       roundPlayer.getDiscard().add(activePile.get().addCard(card));
     } else {
-      Pile pile = roundPlayer.getPlayer().getBrain().selectPile(table, card);
       roundPlayer.getDiscard().add(pile.replace(card));
     }
 

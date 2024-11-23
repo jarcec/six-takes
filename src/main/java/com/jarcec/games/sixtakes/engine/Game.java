@@ -1,5 +1,6 @@
 package com.jarcec.games.sixtakes.engine;
 
+import com.jarcec.games.sixtakes.brain.Brain;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 
@@ -63,13 +64,8 @@ public class Game {
       // 2) Players need to chose cards
       List<SelectedCard> selectedCards = new ArrayList<>();
       for(TablePlayer roundPlayer : table.getPlayers()) {
-        selectedCards.add(
-          new SelectedCard(
-            roundPlayer.getPlayer().getBrain().selectCard(
-            roundPlayer.getHand(),
-            table
-          ),
-          roundPlayer));
+        Brain.Selection selection = roundPlayer.getPlayer().getBrain().makeSelection(roundPlayer.getHand(), table);
+        selectedCards.add(new SelectedCard(selection.getCard(), selection.getPile(), roundPlayer));
       }
 
       // 3) Sort order of the cards

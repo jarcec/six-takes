@@ -12,7 +12,7 @@ public class GameRunner {
     System.out.println("Welcome to SixTakes!");
 
     Game game = new Game(Set.of(
-      new Player("Human", new InteractiveBrain()),
+//      new Player("Human", new InteractiveBrain()),
       new Player("A", new RandomBrain()),
       new Player("B", new RandomBrain()),
       new Player("C", new RandomBrain()),
