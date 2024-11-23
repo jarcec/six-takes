@@ -39,9 +39,9 @@ public interface Brain {
 
   /**
    * List of all selected cards for this turn across all players.
-   * @param selectedCards All selected cards this turn
+   * @param selections All selected cards this turn
    */
-  default void selectedCards(List<SelectedCard> selectedCards) {
+  default void selectedCards(List<com.jarcec.games.sixtakes.engine.Selection> selections) {
   }
 
   /**

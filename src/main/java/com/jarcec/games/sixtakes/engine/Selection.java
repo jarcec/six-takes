@@ -5,12 +5,12 @@ import lombok.Getter;
 import java.util.Optional;
 
 @Getter
-public class SelectedCard implements Comparable<SelectedCard> {
+public class Selection implements Comparable<Selection> {
   private final Card card;
   private final Pile pile;
   private final TablePlayer roundPlayer;
 
-  public SelectedCard(Card card, Pile pile, TablePlayer roundPlayer) {
+  public Selection(Card card, Pile pile, TablePlayer roundPlayer) {
     this.card = card;
     this.pile = pile;
     this.roundPlayer = roundPlayer;
@@ -48,7 +48,7 @@ public class SelectedCard implements Comparable<SelectedCard> {
   }
 
   @Override
-  public int compareTo(SelectedCard o) {
+  public int compareTo(Selection o) {
     return card.compareTo(o.card);
   }
 }

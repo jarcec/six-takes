@@ -50,7 +50,7 @@ public class RoundHistory {
     }
   }
 
-  public void createAndAddTurn(Table table, List<SelectedCard> selectedCards) {
+  public void createAndAddTurn(Table table, List<Selection> selections) {
     turns.add(new History.Turn(
       new History.Table(
         table.getPiles().get(0).getCards().stream().map(Card::getId).toList(),
@@ -58,7 +58,7 @@ public class RoundHistory {
         table.getPiles().get(2).getCards().stream().map(Card::getId).toList(),
         table.getPiles().get(3).getCards().stream().map(Card::getId).toList()
       ),
-      selectedCards.stream().collect(Collectors.toMap(c -> c.getRoundPlayer().getPlayer().getId().toString(), c -> c.getCard().getId()))
+      selections.stream().collect(Collectors.toMap(c -> c.getRoundPlayer().getPlayer().getId().toString(), c -> c.getCard().getId()))
     ));
   }
 

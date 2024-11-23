@@ -65,8 +65,8 @@ public class InteractiveBrain {
   }
 
 //  @Override
-  public void selectedCards(List<SelectedCard> selectedCards) {
-    String cards = selectedCards.stream()
+  public void selectedCards(List<Selection> selections) {
+    String cards = selections.stream()
       .map(c -> c.getCard().getId() + "(" + c.getCard().getPoints() + ")")
       .collect(Collectors.joining(", "));
     System.out.println("Cards selected in this turn (points): " + cards);

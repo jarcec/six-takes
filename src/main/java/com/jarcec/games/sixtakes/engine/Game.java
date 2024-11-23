@@ -62,25 +62,25 @@ public class Game {
       }
 
       // 2) Players need to chose cards
-      List<SelectedCard> selectedCards = new ArrayList<>();
+      List<Selection> selections = new ArrayList<>();
       for(TablePlayer roundPlayer : table.getPlayers()) {
         Brain.Selection selection = roundPlayer.getPlayer().getBrain().makeSelection(roundPlayer.getHand(), table);
-        selectedCards.add(new SelectedCard(selection.getCard(), selection.getPile(), roundPlayer));
+        selections.add(new Selection(selection.getCard(), selection.getPile(), roundPlayer));
       }
 
       // 3) Sort order of the cards
-      Collections.sort(selectedCards);
-      log.info("Selected cards for this turn: {}", selectedCards);
+      Collections.sort(selections);
+      log.info("Selected cards for this turn: {}", selections);
       for(Player player : players) {
-        player.getBrain().selectedCards(selectedCards);
+        player.getBrain().selectedCards(selections);
       }
 
       // Intermezzo: Persist history of the game
-      history.createAndAddTurn(table, selectedCards);
+      history.createAndAddTurn(table, selections);
 
       // 4) Add cards to the table
-      for(SelectedCard selectedCard : selectedCards) {
-        selectedCard.addCardToTable(table);
+      for(Selection selection : selections) {
+        selection.addCardToTable(table);
       }
     }
 
