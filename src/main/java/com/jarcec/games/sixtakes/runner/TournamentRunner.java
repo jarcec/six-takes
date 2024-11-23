@@ -55,7 +55,7 @@ public class TournamentRunner {
       System.out.println();
     }
 
-    // Serialize history
+    // Serialize history (as json)
     Path path = Paths.get("/Users/jarcec/projects/six-takes/round-histories.json");
     try (BufferedWriter writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8)) {
       Gson gson = new GsonBuilder().create();
@@ -64,5 +64,13 @@ public class TournamentRunner {
         writer.newLine();
       }
     }
+
+    /*
+    Path path = Paths.get("/Users/jarcec/projects/six-takes/round-histories-training.csv");
+    try (BufferedWriter writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8)) {
+      for (RoundHistory history : tournament.getRoundHistories()) {
+      }
+    }
+     */
   }
 }

@@ -37,7 +37,6 @@ public class RoundHistory {
     }
   }
 
-
   private final List<History.Player> players = new ArrayList<>();
   private final List<History.Turn> turns = new ArrayList<>();
   private Map<String, Integer> score = new HashMap<>();
@@ -66,7 +65,7 @@ public class RoundHistory {
   public void setFinalScore(Score score) {
     this.score = score.getPoints().entrySet().stream().collect(Collectors.toMap(
       e -> e.getKey().getId().toString(),
-      e -> e.getValue()
+      Map.Entry::getValue
     ));
   }
 }
