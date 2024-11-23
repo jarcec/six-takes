@@ -23,7 +23,7 @@ public class Dl4jTrainerRunner {
         InputType.feedForward(104) // playedcards
       )
       .addLayer("piles", new DenseLayer.Builder().nOut(104).build(), "pile1", "pile2", "pile3", "pile4")
-      .addLayer("selectedcard", new DenseLayer.Builder().nOut(104).build(), "hand", "piles", "playedcards")
+      .addLayer("selectedcard", new DenseLayer.Builder().nOut(10).build(), "hand", "piles", "playedcards")
       .addLayer("selectedpile", new DenseLayer.Builder().nOut(4).build(), "hand", "piles", "playedcards")
       .setOutputs("selectedcard", "selectedpile")
       .build();
