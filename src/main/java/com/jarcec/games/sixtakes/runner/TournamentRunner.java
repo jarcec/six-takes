@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.jarcec.games.sixtakes.brain.HighestCardBrain;
 import com.jarcec.games.sixtakes.brain.LowestCardBrain;
 import com.jarcec.games.sixtakes.brain.RandomBrain;
+import com.jarcec.games.sixtakes.brain.dl4j.Dl4jBrain;
 import com.jarcec.games.sixtakes.display.Histogram;
 import com.jarcec.games.sixtakes.engine.Player;
 import com.jarcec.games.sixtakes.engine.RoundHistory;
@@ -26,6 +27,7 @@ public class TournamentRunner {
 
     // Players
     List<Player> players = List.of(
+      new Player("Mercury", new Dl4jBrain("/Users/jarcec/projects/six-takes/mercury.model")),
       new Player("A", new LowestCardBrain()),
       new Player("B", new HighestCardBrain()),
       new Player("C", new RandomBrain()),
