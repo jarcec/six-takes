@@ -69,6 +69,14 @@ public class Game {
         selections.add(new Selection(selection.getCard(), selection.getPile(), roundPlayer));
       }
 
+      // Intermezzo: Validate that all selections are actually valid
+      for(Selection selection : selections) {
+        assert selection != null;
+        assert selection.getPile() != null;
+        assert selection.getCard() != null;
+        assert selection.getRoundPlayer().getHand().getCards().contains(selection.getCard());
+      }
+
       // 3) Sort order of the cards
       Collections.sort(selections);
       log.info("Selected cards for this turn: {}", selections.stream()
@@ -85,6 +93,11 @@ public class Game {
       // 4) Add cards to the table
       for(Selection selection : selections) {
         selection.addCardToTable(table);
+      }
+
+      // Intermezzo: Validate that all hands are as expected
+      for(TablePlayer roundPlayer : table.getPlayers()) {
+        assert roundPlayer.getHand().getCards().size() == 10 - turnNumber;
       }
     }
 
