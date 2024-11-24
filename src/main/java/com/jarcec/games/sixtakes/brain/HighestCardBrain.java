@@ -8,7 +8,7 @@ public class HighestCardBrain implements Brain {
   @Override
   public Brain.Selection makeSelection(Hand hand, Table table) {
     return new Brain.Selection(
-      hand.getCards().stream().reduce(new Card(104), (a, b) -> a.getId() > b.getId() ? a : b),
+      hand.getCards().stream().reduce(new Card(1), (a, b) -> a.getId() > b.getId() ? a : b),
       table.getLowestPointPile()
     );
   }
